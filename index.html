@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child of Nasdaq</title>
+
+    <!-- Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* Your CSS styling here */
+    </style>
+</head>
+<body>
+
+    <!-- Authentication Screen -->
+    <div class="container" id="authenticationScreen">
+        <h2>Authentication</h2>
+        <form id="authForm" onsubmit="authenticateUser(event)">
+            <div class="form-group">
+                <i class="fas fa-user-circle"></i>
+                <input type="text" id="mentorId" placeholder="Mentor ID" required>
+            </div>
+
+            <div class="form-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" placeholder="Email" required>
+            </div>
+
+            <div class="form-group">
+                <i class="fas fa-key"></i>
+                <input type="text" id="licenseKeyAuth" placeholder="License Key" required>
+            </div>
+
+            <button type="submit" class="btn-connect">Authenticate</button>
+        </form>
+    </div>
+
+    <!-- Home Screen -->
+    <div class="container hidden" id="homeScreen">
+        <div class="bot-info">
+            <h2>CHILD OF NASDAQ</h2>
+            <img id="botImage" src="https://via.placeholder.com/300x200" alt="Bot Image">
+            <p>C.O.N-IBOT, 24/7 OPERATION</p>
+        </div>
+        <div class="log-section">
+            <div class="robot-active"></div>
+            <h3>Bot Logs</h3>
+            <ul id="logList"></ul>
+        </div>
+        <div class="action-buttons">
+            <button class="btn-trade" id="tradeButton" onclick="toggleTrade()">Start Trading</button>
+            <button class="btn-settings" onclick="navigateTo('settingsScreen')">Settings</button>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <button onclick="navigateTo('homeScreen')">
+            <i class="fas fa-home"></i>
+            Home
+        </button>
+        <button onclick="navigateTo('connectScreen')">
+            <i class="fas fa-plug"></i>
+            Connect
+        </button>
+        <button onclick="navigateTo('settingsScreen')">
+            <i class="fas fa-cog"></i>
+            Settings
+        </button>
+    </div>
+
+    <script>
+        // Initialize with Deriv credentials
+        const derivDetails = {
+            loginId: "5493649",
+            password: "#Godfirst078",
+            server: "Deriv-Demo",
+            apiToken: "VXFyQyX08Zfpw42"  // Your provided API token
+        };
+
+        // Simulated connection function
+        function connectToAccount(event) {
+            event.preventDefault();
+            addLog(`Connecting to account ${derivDetails.loginId}...`);
+
+            setTimeout(() => {
+                addLog(`Connected to account ${derivDetails.loginId} on server ${derivDetails.server}`);
+                navigateTo('homeScreen');
+            }, 2000);
+        }
+
+        // Add Log
+        function addLog(message) {
+            const logList = document.getElementById('logList');
+            const logItem = document.createElement('li');
+            logItem.textContent = message;
+            logList.appendChild(logItem);
+            logList.scrollTop = logList.scrollHeight;
+        }
+
+        // Additional placeholder functions
+        function toggleTrade() {
+            const tradeButton = document.getElementById('tradeButton');
+            if (tradeButton.innerText === "Start Trading") {
+                tradeButton.innerText = "Stop Trading";
+                addLog("Trading started...");
+            } else {
+                tradeButton.innerText = "Start Trading";
+                addLog("Trading stopped.");
+            }
+        }
+    </script>
+</body>
+</html>
